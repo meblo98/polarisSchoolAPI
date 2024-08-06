@@ -13,6 +13,10 @@ return new class extends Migration
     {
         Schema::create('unite_enseignements', function (Blueprint $table) {
             $table->id();
+            $table->string('libelle');
+            $table->date('date_debut');
+            $table->date('date_fin');
+            $table->integer('coef');
             $table->timestamps();
         });
     }

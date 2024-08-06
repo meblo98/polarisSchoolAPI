@@ -11,4 +11,8 @@ class Etudiant extends Model
 {
     use HasFactory, SoftDeletes;
     protected $guarded = [];
+
+    public function evaluations(){
+        return $this->hasMany(Evaluation::class);
+    }
 }

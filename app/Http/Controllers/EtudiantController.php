@@ -72,7 +72,7 @@ class EtudiantController extends Controller
             $image = $request->file('image');
             $etudiant->image = $image->store('etudiant', 'public');
         }
-        dd($etudiant);
+
         $etudiant->update();
         return $this->customJsonResponse("Étudiant modifié avec succès", $etudiant);
     }

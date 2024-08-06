@@ -8,4 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class Matiere extends Model
 {
     use HasFactory;
+    protected $guarded = [];
+
+    public function uniteEnseignement(){
+        return $this->belongsTo(UniteEnseignement::class);
+    }
+
 }

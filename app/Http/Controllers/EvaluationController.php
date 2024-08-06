@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreEvaluationRequest;
 use App\Http\Requests\UpdateEvaluationRequest;
 use App\Models\Evaluation;
+use Illuminate\Support\Facades\Log;
 
 class EvaluationController extends Controller
 {
@@ -29,7 +30,9 @@ class EvaluationController extends Controller
      */
     public function store(StoreEvaluationRequest $request)
     {
-        //
+        $evaluation = Evaluation::create($request->validated());
+        return $this->customJsonResponse("Note ajoutée avec succès", $evaluation);
+        
     }
 
     /**
@@ -37,7 +40,8 @@ class EvaluationController extends Controller
      */
     public function show(Evaluation $evaluation)
     {
-        //
+        return $this->customJsonResponse("evaluation récupéré avec succès", $evaluation);
+
     }
 
     /**
@@ -53,7 +57,11 @@ class EvaluationController extends Controller
      */
     public function update(UpdateEvaluationRequest $request, Evaluation $evaluation)
     {
-        //
+        Log::info('Update method reached');
+        
+        $evaluation->update($request->validated());
+        return $this->customJsonResponse("Note mise à jour avec succès", $evaluation);
+
     }
 
     /**
@@ -61,6 +69,7 @@ class EvaluationController extends Controller
      */
     public function destroy(Evaluation $evaluation)
     {
-        //
+        $evaluation->delete();
+        return $this->customJsonResponse("Évaluation supprimé avec succès", null, 200);
     }
 }

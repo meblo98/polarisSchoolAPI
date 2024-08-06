@@ -32,7 +32,8 @@ class UpdateEtudiantRequest extends FormRequest
             'genre' => ['required','in:femme,homme'],
             'niveau' => ['required','string','max:255'],
             'filiere' => ['required','string','max:255'],
-            "photo" => ["required", "mimes:jpeg,png,jpg", "max:2048"]
+            "photo" => ["required", "mimes:jpeg,png,jpg", "max:2048"],
+            'id' => ['required', 'exists:etudiants,id']
         ];
     }
 }

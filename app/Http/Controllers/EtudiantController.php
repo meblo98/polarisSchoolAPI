@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreEtudiantRequest;
 use App\Http\Requests\UpdateEtudiantRequest;
 use App\Models\Etudiant;
+use Illuminate\Support\Facades\File;
+
 
 class EtudiantController extends Controller
 {
@@ -30,7 +32,14 @@ class EtudiantController extends Controller
      */
     public function store(StoreEtudiantRequest $request)
     {
-        //
+        $etudiant = Etudiant::create($request->validated());
+        $etudiant->fill($request->validated());
+        if ($request->hasFile('photo')) {
+            $image = $request->file('photo');
+            $etudiant->image = $image->store('etudiant', 'public');
+        }
+        $etudiant->save();
+        return $this->customJsonResponse("Étudiant créé avec succès", $etudiant);
     }
 
     /**
@@ -38,7 +47,7 @@ class EtudiantController extends Controller
      */
     public function show(Etudiant $etudiant)
     {
-        //
+        return $this->customJsonResponse("Étudiant récupéré avec succès", $etudiant);
     }
 
     /**
@@ -46,7 +55,7 @@ class EtudiantController extends Controller
      */
     public function edit(Etudiant $etudiant)
     {
-        //
+        
     }
 
     /**
@@ -54,7 +63,22 @@ class EtudiantController extends Controller
      */
     public function update(UpdateEtudiantRequest $request, Etudiant $etudiant)
     {
-        //
+        $etudiant->fill($request->validated());
+        if ($request->hasFile('image')) {
+
+            if (File::exists(public_path("storage/" . $etudiant->image))) {
+                File::delete(public_path($etudiant->image));
+            }
+            $image = $request->file('image');
+            $etudiant->image = $image->store('etudiant', 'public');
+        }
+        dd($etudiant);
+        $etudiant->update();
+        return $this->customJsonResponse("Étudiant modifié avec succès", $etudiant);
+    }
+    public function trashed(){
+        $etudiants = Etudiant::onlyTrashed()->get();
+        return $this->customJsonResponse("Les étudiants archivés", $etudiants);
     }
 
     /**
@@ -62,6 +86,19 @@ class EtudiantController extends Controller
      */
     public function destroy(Etudiant $etudiant)
     {
-        //
+        $etudiant->delete();
+        return $this->customJsonResponse("Étudiant supprimé avec succès", null, 200);
+    }
+    public function restore($id)
+    {
+        $etudiant = Etudiant::onlyTrashed()->where('id', $id)->first();
+        $etudiant->restore();
+        return $this->customJsonResponse("Étudiant restauré avec succès", $etudiant);
+    }
+    public function forceDelete($id)
+    {
+        $etudiant = Etudiant::onlyTrashed()->where('id', $id)->first();
+        $etudiant->forceDelete();
+        return $this->customJsonResponse("Étudiant supprimé de maniere permanant", null, 200);
     }
 }

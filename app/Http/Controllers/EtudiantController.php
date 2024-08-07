@@ -38,7 +38,7 @@ class EtudiantController extends Controller
             $image = $request->file('photo');
             $etudiant->image = $image->store('etudiant', 'public');
         }
-        $etudiant->save();
+        $etudiant->save($request->all());
         return $this->customJsonResponse("Étudiant créé avec succès", $etudiant);
     }
 
@@ -73,7 +73,7 @@ class EtudiantController extends Controller
             $etudiant->image = $image->store('etudiant', 'public');
         }
 
-        $etudiant->update();
+        $etudiant->update($request->all());
         return $this->customJsonResponse("Étudiant modifié avec succès", $etudiant);
     }
     public function trashed(){

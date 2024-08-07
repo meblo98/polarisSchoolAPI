@@ -22,11 +22,11 @@ class UpdateEvaluationRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'date' => ['required','date'],
-            'note' => ['required','integer','between:0,20'],
-            'matiere_id' => ['required','exists:matieres,id'],
-            'etudiant_id' => ['required','exists:etudiants,id'],
-            'id' => ['required','exists:evaluations,id'],
+            // 'date' => ['required','date'],
+            // 'note' => ['required','integer','between:0,20'],
+            // 'matiere_id' => ['required','exists:matieres,id'],
+            // 'etudiant_id' => ['required','exists:etudiants,id'],
+            // 'id' => ['required','exists:evaluations,id'],
         ];
     }
 }

@@ -24,13 +24,13 @@ Route::middleware("auth")->group(
         Route::get("logout", [AuthController::class, "logout"]);
         Route::get("refresh", [AuthController::class, "refreshToken"]);
         Route::get('etudiants', [EtudiantController::class, 'index']);
-        Route::post('etudiant/ajout', [EtudiantController::class, 'store']);
+        Route::post('etudiants/ajout', [EtudiantController::class, 'store']);
         Route::get('etudiants/{etudiant}', [EtudiantController::class, 'show']);
         Route::delete('etudiants/{etudiant}', [EtudiantController::class, 'destroy']);
-        Route::post('etudiants/{etudiant}', [EtudiantController::class, 'update']);
+        Route::apiResource('etudiants', EtudiantController::class)->only('update');
         Route::post('note/ajout', [EvaluationController::class, 'store']);
         Route::get('note/{evaluation}', [EvaluationController::class, 'show']);
         Route::delete('note/{evaluation}', [EvaluationController::class, 'destroy']);
     }
-    
+
 );

@@ -22,17 +22,17 @@ class StoreEtudiantRequest extends FormRequest
     public function rules(): array
     {
         return [
-            // 'nom' => ['required','string','max:255'],
-            // 'prenom' => ['required','string','max:255'],
-            // 'email' => ['required','email','unique:etudiants','email'],
-            // 'matricule' => ['required','unique:etudiants'],
-            // 'date_naissance' => ['required','date'],
-            // 'adresse' => ['required','string','max:255'],
-            // 'telephone' => 'required','string','max:20',
-            // 'genre' => ['required','in:femme,homme'],
-            // 'niveau' => ['required','string','max:255'],
-            // 'filiere' => ['required','string','max:255'],
-            // "photo" => ["required", "mimes:jpeg,png,jpg", "max:2048"]
+            'nom' => ['required','string','max:255'],
+            'prenom' => ['required','string','max:255'],
+            'email' => ['required','email','unique:etudiants','email'],
+            'matricule' => ['required','unique:etudiants'],
+            'date_naissance' => ['required','date'],
+            'adresse' => ['required','string','max:255'],
+            'telephone' => 'required','string','max:20',
+            'genre' => ['required','in:femme,homme'],
+            'niveau' => ['required','string','max:255'],
+            'filiere' => ['required','string','max:255'],
+            "photo" => ["required", "mimes:jpeg,png,jpg", "max:2048"]
         ];
     }
 }

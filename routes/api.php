@@ -16,7 +16,6 @@ Route::get('/user', function (Request $request) {
 Route::get("etudiants/archives", [EtudiantController::class, "trashed"])->middleware('auth');
 Route::delete('etudiants/{id}/force-delete', [EtudiantController::class, "forceDelete"])->middleware("auth");
 Route::post('etudiants/{id}/restore', [EtudiantController::class, "restore"])->middleware("auth");
-Route::put('note/{evaluation}/modifier', [EvaluationController::class, 'update']);
 
 Route::post("login", [AuthController::class, "login"]);
 Route::middleware("auth")->group(
@@ -30,6 +29,7 @@ Route::middleware("auth")->group(
         Route::apiResource('etudiants', EtudiantController::class)->only('update');
         Route::post('note/ajout', [EvaluationController::class, 'store']);
         Route::get('note/{evaluation}', [EvaluationController::class, 'show']);
+        Route::put('note/{evaluation}/modifier', [EvaluationController::class, 'update']);
         Route::delete('note/{evaluation}', [EvaluationController::class, 'destroy']);
     }
 
